@@ -1,0 +1,3 @@
+[submodule "virtual-wallet"]
+	path = virtual-wallet
+	url = https://github.com/Facundo-Lazcano/virtual-wallet

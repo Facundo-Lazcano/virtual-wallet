@@ -1,0 +1,51 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: aqua;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.header h1 {
+    padding: 1rem;
+}
+
+
+.user {
+    display: flex;
+    flex-direction: row;
+    padding: 1rem;
+    align-items: center;
+    text-transform: capitalize;
+}
+
+.user p {
+    margin: .5rem;
+    font-size: large;
+    font-weight: bold;
+
+}
+
+.user input {
+    background-color: transparent;
+    border: 1px solid black;
+    border-radius: 3px;
+    text-transform: capitalize;
+    font-weight: bold;
+}
+
+.logout {
+    border: 1px solid #000;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: .2s ease-in-out all;
+}
+
+.logout:hover {
+    background-color: #000;
+    color: aqua;
+}

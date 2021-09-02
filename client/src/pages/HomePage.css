@@ -1,0 +1,18 @@
+.balance {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.balance h4 {
+    border-radius: 5px;
+    padding: 1rem;
+    color: hsl(0, 0%, 100%);
+}
+
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-top: 3rem;
+}
