@@ -67,14 +67,14 @@ const HomePage = ({ getMovements, auth, movements }) => {
       <div className='container'>
         <Header />
         <div className='row'>
-          <div className='col-xl-6'>
+          <div className='col-xl-6 '>
             <Movements
               type='entrys'
               entrysAmount={entrysAmount()}
               movements={ingresos}
             />
           </div>
-          <div className='col-xl-6'>
+          <div className='col-xl-6 '>
             <Movements
               type='expenses'
               expensesAmount={expensesAmount()}

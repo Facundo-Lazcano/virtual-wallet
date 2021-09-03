@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { updateMovement, getMovement, addMovement } from '../actions'
+import {
+  updateMovement,
+  getMovement,
+  addMovement,
+  deleteMovement
+} from '../actions'
 import Header from '../components/Header'
 import history from '../history'
 import './AddOrEditMovement.css'
+import { useMediaQuery } from 'react-responsive'
 
 const AddOrEditMovements = ({
   Add,
@@ -35,6 +41,9 @@ const AddOrEditMovements = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [movement.movements.amount])
 
+  const isMobile = useMediaQuery({
+    maxWidth: 768
+  })
   const handleAddOrEdit = () => {
     if (Add) {
       addMovement(
@@ -95,16 +104,36 @@ const AddOrEditMovements = ({
             className='form-control'
           />
         </div>
-        <div className='buttons'>
-          <input
-            onClick={handleAddOrEdit}
-            type='button'
-            value={Add ? 'Add' : 'Edit'}
-            className='btn btn-primary'
-          />
-          <div className='btn btn-danger'>
-            <Link to='/'>Cancel</Link>
+        <div className='buttons row'>
+          <div className='col'>
+            <input
+              onClick={handleAddOrEdit}
+              type='button'
+              value={Add ? 'Add' : 'Edit'}
+              className='btn btn-primary'
+            />
           </div>
+          <div className='col'>
+            <div className='btn btn-danger'>
+              <Link to='/'>Cancel</Link>
+            </div>
+          </div>
+          {isMobile ? (
+            <div className='col'>
+              <div className='btn btn-dark'>
+                <input
+                  type='button'
+                  value='Delete'
+                  onClick={() =>
+                    deleteMovement(
+                      movement.movements.id,
+                      localStorage.getItem('token')
+                    )
+                  }
+                />
+              </div>
+            </div>
+          ) : null}
         </div>
       </div>
     </div>
