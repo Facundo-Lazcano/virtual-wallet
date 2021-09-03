@@ -19,10 +19,25 @@ export const login = (email, password) => async dispatch => {
       email,
       password
     })
-    localStorage.setItem('user', res.data.name)
-    localStorage.setItem('token', res.data.token)
-    dispatch({ type: LOGIN, payload: res.data })
-    history.push('/')
+    if (res.data.message === 'ok') {
+      localStorage.setItem('user', res.data.name)
+      localStorage.setItem('token', res.data.token)
+      dispatch({ type: LOGIN, payload: res.data })
+      history.push('/')
+    } else if (res.data.message === 'Wrong password') {
+      Swal.fire({
+        title: 'Error',
+        text: res.data.message,
+        icon: 'error'
+      })
+    } else {
+      Swal.fire({
+        title: 'Error',
+        text: res.data.message,
+        icon: 'error',
+        footer: '<a href="/register">Sign In Instead</a>'
+      })
+    }
   } catch (error) {
     console.log(error)
   }
@@ -35,24 +50,44 @@ export const register = (name, email, password) => async dispatch => {
       email,
       password
     })
-    localStorage.setItem('user', res.data.name)
-    localStorage.setItem('token', res.data.token)
-    dispatch({ type: REGISTER, payload: res.data })
-    history.push('/')
+    if (res.data.message === 'ok') {
+      localStorage.setItem('user', res.data.name)
+      localStorage.setItem('token', res.data.token)
+      dispatch({ type: REGISTER, payload: res.data })
+      history.push('/')
+    } else {
+      Swal.fire({
+        title: 'Error',
+        text: res.data.message,
+        icon: 'error',
+        footer: '<a href="/login">Login Instead</a>'
+      })
+    }
   } catch (error) {
     console.log(error)
   }
 }
 
 export const logout = () => async dispatch => {
-  try {
-    const res = await axios.post(`/api/logout`)
-    dispatch({ type: LOGOUT, payload: res.data })
-    localStorage.removeItem('user')
-    localStorage.removeItem('token')
-    history.push('/login')
-  } catch (error) {
-    console.log(error)
+  const res = await Swal.fire({
+    title: 'Are you sure?',
+    text: "You'll be redirected to login page",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, log me out!'
+  })
+  if (res.isConfirmed) {
+    try {
+      await axios.post(`/api/logout`)
+      dispatch({ type: LOGOUT })
+      localStorage.removeItem('user')
+      localStorage.removeItem('token')
+      history.push('/login')
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 
@@ -102,6 +137,8 @@ export const addMovement = (
 
     dispatch({ type: ADD_MOVEMENT, payload: res.data })
     await Swal.fire({
+      heightAuto: true,
+      width: '70%',
       position: 'top-right',
       icon: 'success',
       title: 'Your movement has been created',

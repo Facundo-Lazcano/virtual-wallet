@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js",
+    "dev": "concurrently \"nodemon app.js\" cd client  && npm start 3000\"",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "dependencies": {
@@ -15,6 +15,7 @@
     "ejs": "~2.6.1",
     "express": "~4.16.1",
     "express-session": "^1.17.2",
+    "express-validator": "^6.12.1",
     "http-errors": "~1.6.3",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.0",
