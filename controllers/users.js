@@ -17,7 +17,7 @@ let validations = [
 
 const postRegister = async (req, res) => {
   let { name, email, password } = req.body
-  const user = User.findOne({ email })
+  const user = await User.findOne({ where: { email } })
   if (user) {
     res.json({ message: 'User already register' })
   } else {

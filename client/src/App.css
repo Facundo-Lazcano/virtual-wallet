@@ -2,6 +2,7 @@ html,
 body {
   max-width: 100%;
   overflow-x: hidden;
+
 }
 
 .container,
@@ -9,4 +10,8 @@ body {
 .navbar-fixed-top .container,
 .navbar-fixed-bottom .container {
   width: 100%;
+}
+
+#root {
+  background-color: #e1e1e1;
 }

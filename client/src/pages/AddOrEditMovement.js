@@ -17,7 +17,7 @@ const AddOrEditMovements = ({
   getMovement,
   updateMovement,
   addMovement,
-  auth,
+  deleteMovement,
   match,
   movement
 }) => {
@@ -104,8 +104,8 @@ const AddOrEditMovements = ({
             className='form-control'
           />
         </div>
-        <div className='buttons row'>
-          <div className='col'>
+        <div className='buttons'>
+          <div>
             <input
               onClick={handleAddOrEdit}
               type='button'
@@ -113,13 +113,13 @@ const AddOrEditMovements = ({
               className='btn btn-primary'
             />
           </div>
-          <div className='col'>
+          <div>
             <div className='btn btn-danger'>
               <Link to='/'>Cancel</Link>
             </div>
           </div>
           {isMobile ? (
-            <div className='col'>
+            <div>
               <div className='btn btn-dark'>
                 <input
                   type='button'
@@ -148,5 +148,6 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps, {
   getMovement,
   updateMovement,
-  addMovement
+  addMovement,
+  deleteMovement
 })(AddOrEditMovements)

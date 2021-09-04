@@ -18,7 +18,7 @@ const LoginRegisterPage = ({ register, login, isRegister }) => {
     }
   }
   return (
-    <div className='form'>
+    <div className='form container login'>
       <h1>Welcome to Virtual Wallet</h1>
       <form>
         {isRegister ? (

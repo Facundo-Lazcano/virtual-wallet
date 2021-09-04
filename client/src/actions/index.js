@@ -198,10 +198,11 @@ export const deleteMovement = (id, token) => async dispatch => {
   if (res.isConfirmed) {
     Swal.fire('Deleted!', 'Your movement has been deleted.', 'success')
     try {
-      await axios.delete(`api/movements/${id}/delete`, {
+      await axios.delete(`/api/movements/${id}/delete`, {
         headers: { authorization: `Bearer ${token}` }
       })
       dispatch({ type: DELETE_MOVEMENT, payload: id })
+      history.push('/')
     } catch (error) {
       console.log(error)
     }

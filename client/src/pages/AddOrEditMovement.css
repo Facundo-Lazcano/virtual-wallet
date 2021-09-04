@@ -11,3 +11,13 @@ h2 {
     font-size: medium;
     color: white;
 }
+
+.form {
+    width: 90%;
+}
+
+@media (min-width: 768px) {
+    .form {
+        width: 100%;
+    }
+}
