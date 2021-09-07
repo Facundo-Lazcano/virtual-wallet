@@ -10,9 +10,14 @@ const sequelize = new Sequelize('Ki5FXtqGhb', 'Ki5FXtqGhb', 'HIByudzEG6', {
 const User = UserModel(sequelize, Sequelize)
 const Movements = MovementsModel(sequelize, Sequelize)
 
-sequelize.sync({ force: false }).then(() => {
-  console.log('bd sincronizada')
-})
+sequelize
+  .sync({ force: false })
+  .then(() => {
+    console.log('bd sincronizada')
+  })
+  .catch(error => {
+    console.log(error)
+  })
 
 module.exports = {
   User,
