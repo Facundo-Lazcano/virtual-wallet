@@ -1,68 +1,76 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import './LoginRegisterPage.css'
 import { connect } from 'react-redux'
 import { login, register } from '../actions'
+import { Formik, Form, Field } from 'formik'
+import * as Yup from 'yup'
 
 const LoginRegisterPage = ({ register, login, isRegister }) => {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const FormSchema = Yup.object().shape({
+    name: Yup.string()
+      .min(2, 'Too Short!')
+      .max(50, 'Too Long!')
+      .required('Required'),
+    password: Yup.string()
+      .min(2, 'Too Short!')
+      .max(50, 'Too Long!')
+      .required('Required'),
+    email: Yup.string()
+      .email('Invalid email')
+      .required('Required')
+  })
 
-  const handleSubmit = e => {
-    e.preventDefault()
+  const handleSubmit = (name, email, password) => {
     if (isRegister) {
       register(name, email, password)
     } else {
       login(email, password)
     }
   }
+
   return (
     <div className='form container login'>
       <h1>Welcome to Virtual Wallet</h1>
-      <form>
-        {isRegister ? (
-          <div className='form-group'>
-            <label htmlFor='name'>Name</label>
-            <input
-              type='text'
-              className='form-control'
-              name='name'
-              id='name'
-              value={name}
-              onChange={e => setName(e.target.value)}
-            />
-          </div>
-        ) : null}
-        <div className='form-group'>
-          <label htmlFor='email'>Email</label>
-          <input
-            type='email'
-            className='form-control'
-            name='email'
-            id='email'
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-          />
-        </div>
-        <div className='form-group'>
-          <label htmlFor='password'>Password</label>
-          <input
-            type='password'
-            className='form-control'
-            name='password'
-            id='password'
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-          />
-        </div>
-        <input
-          type='submit'
-          className='btn btn-primary'
-          onClick={handleSubmit}
-          value={isRegister ? 'Sign In' : 'Log In'}
-        />
-      </form>
+      <Formik
+        initialValues={{
+          name: '',
+          password: '',
+          email: ''
+        }}
+        validationSchema={FormSchema}
+        onSubmit={values => {
+          handleSubmit(values.name, values.email, values.password)
+        }}
+      >
+        {({ errors, touched }) => (
+          <Form>
+            {isRegister ? (
+              <div className='form-group'>
+                <Field
+                  name='name'
+                  placeholder='Name'
+                  className='form-control'
+                />
+                {errors.name && touched.name ? <div>{errors.name}</div> : null}
+              </div>
+            ) : null}
+            <div className='form-group'>
+              <Field name='email' type='email' className='form-control' />
+              {errors.email && touched.email ? <div>{errors.email}</div> : null}
+            </div>
+            <div className='form-group'>
+              <Field name='password' type='password' className='form-control' />
+              {errors.password && touched.password ? (
+                <div>{errors.password}</div>
+              ) : null}
+            </div>
+            <button type='submit' className='btn btn-primary'>
+              {isRegister ? 'Sign In' : 'Log In'}
+            </button>
+          </Form>
+        )}
+      </Formik>
       {isRegister ? (
         <>
           <p>

@@ -2,8 +2,8 @@ const { Sequelize } = require('sequelize')
 const UserModel = require('../models/user')
 const MovementsModel = require('../models/movements')
 
-const sequelize = new Sequelize('wallet', 'admin', 'admin', {
-  host: '34.95.214.39',
+const sequelize = new Sequelize('wallet', 'root', 'root', {
+  host: 'localhost',
   dialect: 'mysql'
 })
 
